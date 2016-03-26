@@ -2,9 +2,14 @@ import random ,sys
 import pygame as pg
 
 # game vars
+cardNum = 6
+
+for x in range(cardNum/2):
+	randBoard.append(x)
+	randBoard.append(x)
 
 board = []
-randBoard = [1,1,2,2,3,3,4,4,5,5,6,6]
+randBoard = []
 
 # pygmae constints
 
@@ -19,7 +24,6 @@ polyPoints = (3,4,5,6,7,8)
 
 size = width,heights = 320*3, 240*3
 
-cardNum = 6
 
 class Board:
 
@@ -35,6 +39,7 @@ class Board:
         # checking the first one
         for x in range(0,self.boardX):
             for y in range(0,self.boardY):
+				pass
 
     def shuffle(self):
         random.shuffle(randBoard)
@@ -59,19 +64,18 @@ class card:
 		self.x = 0
 		self.y = 0
 
-    def reset(self):
-        self.color = BLUE
+	def reset(self):
+		self.color = BLUE
 
 	def place(self,x,y):
 		self.x = x
 		self.y = y
 
-
-    def hoverCheck(self):
-        if pg.mouse.get_pos()[0] >= 30 and pg.mouse.get_pos()[1] >= 30 and  pg.mouse.get_pos()[0] <= 90 and pg.mouse.get_pos()[1] <= 90 :
-            print "1"
-            self.color=WHITE
-            click+=1
+	def hoverCheck(self):
+		if pg.mouse.get_pos()[0] >= 30 and pg.mouse.get_pos()[1] >= 30 and  pg.mouse.get_pos()[0] <= 90 and pg.mouse.get_pos()[1] <= 90 :
+			print "1"
+			self.color=WHITE
+			click+=1
 
 	def cardChek(self,nShape):
 		if self.shape == nShape:
@@ -128,21 +132,22 @@ while False:
 
 deck = []
 for x in range(cardNum):
-    deck.append(,x)
+	deck.append(,x)
 
 
 while True:
 
 	for event in pg.event.get():
-		if event.type == pg.QUIT: sys.exit()
+		if event.type == pg.QUIT:
+			sys.exit()
 
 		if event.type == pg.MOUSEBUTTONUP:
-
+			pass
 			#for loop over the card spots
-            #card.check
+			#card.check
 
-    if clik > 2:
-        pass
+	if clik > 2:
+		pass
 
 #PG display
 	#font = pg.font.SysFont('Calibri', 25, True, False)
