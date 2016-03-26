@@ -2,16 +2,6 @@ import random ,sys
 import pygame as pg
 
 # game vars
-cardNum = 6
-
-for x in range(cardNum/2):
-	randBoard.append(x)
-	randBoard.append(x)
-
-board = []
-randBoard = []
-
-polyPoints = (3,4,5,6,7,8)
 
 # pygmae constints
 
@@ -27,9 +17,26 @@ size = width,heights = 320*3, 240*3
 class Board:
 
 	def __init__(self):
+		self.cardNum = 6
 		self.boardX = 3
 		self.boardY = 2
 		self.deck = []
+		self.board = []
+
+		# Making the cards
+		for x in range(cardNum):
+			deck.append(shapeList(x),x)
+
+	def boardSetUp(self):
+		shapeList = [x for x  in rnage(3,(self.cardNum/2)+3)  ]
+		for x in range(self.cardNum/2):
+			self.board.append(x)
+			self.board.append(x)
+
+	def shuffle(self):
+		# this is to be only used at the start of a new game
+		random.shuffle(randBoard)
+
 
 	def printBoard(self):
 		pass
@@ -39,10 +46,6 @@ class Board:
 		for x in range(0,self.boardX):
 			for y in range(0,self.boardY):
 				pass
-
-	def shuffle(self):
-		# this is to be only used at the start of a new game
-		random.shuffle(randBoard)
 
 	for x in (0,3,6,9):
 		board.append([randBoard[x],randBoard[x+1],randBoard[x+2]])
@@ -129,10 +132,6 @@ while False:
 	screen.blit(name, [200, 500])
 	pg.display.flip()
 	break
-
-deck = []
-for x in range(cardNum):
-	deck.append(,x)
 
 
 while True:
