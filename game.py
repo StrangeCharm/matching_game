@@ -35,7 +35,7 @@ class Board:
         # checking the first one
         for x in range(0,self.boardX):
             for y in range(0,self.boardY):
-                
+
     def shuffle(self):
         random.shuffle(randBoard)
 
@@ -51,11 +51,11 @@ class Board:
 class card:
 
 	def __init__(self, shape, number):
-        self.number = number
+		self.number = number
 		self.shape = shape[0]
 		self.points = shape[1]
 		self.found = False
-        self.color = BLUE
+		self.color = BLUE
 		self.x = 0
 		self.y = 0
 
