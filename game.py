@@ -6,7 +6,6 @@ import pygame as pg
 board = []
 randBoard = [1,1,2,2,3,3,4,4,5,5,6,6]
 
-finishedBoard = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
 # pygmae constints
 
 BLACK = 0,0,0
@@ -25,33 +24,21 @@ cardNum = 6
 class Board:
 
     def __init__(self):
-        self.boardX = 4
-        self.boardY = 3
+        self.boardX = 3
+        self.boardY = 2
 
     def printBoard(self):
         pass
 
-    def silect(self, x, y):
-        if finishedBoard[x][y] == 0:
-            finishedBoard[x][y] += board[x][y]
 
     def check(self):
-        matches=0
         # checking the first one
         for x in range(0,self.boardX):
             for y in range(0,self.boardY):
-                # checkig the secund one
-                for a in range(0,self.boardX):
-                    for b in range(0,self.boardY):
-
-                        if finishedBoard[x][y] == finishedBoard[a][b]:
-                            if finishedBoard[x][y] != 0:
-                                if x != a or y!=b:
-                                    print "Match Found"
-                                    matches+=1
-            return matches
+                
     def shuffle(self):
         random.shuffle(randBoard)
+
 	for x in (0,3,6,9):
 		board.append([randBoard[x],randBoard[x+1],randBoard[x+2]])
 	#board.append([randBoard[0],randBoard[1],randBoard[2]])
@@ -78,6 +65,7 @@ class card:
 	def place(self,x,y):
 		self.x = x
 		self.y = y
+
 
     def hoverCheck(self):
         if pg.mouse.get_pos()[0] >= 30 and pg.mouse.get_pos()[1] >= 30 and  pg.mouse.get_pos()[0] <= 90 and pg.mouse.get_pos()[1] <= 90 :
@@ -152,17 +140,6 @@ while True:
 
 			#for loop over the card spots
             #card.check
-
-
-	#game eliments
-	#game.printBoard()
-		#for testing only
-	#game.silect(int(raw_input("x>"))-1,int(raw_input("y>"))-1)
-	#print game.check()
-
-
-	if board == finishedBoard:
-		break
 
     if clik > 2:
         pass
