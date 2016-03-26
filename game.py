@@ -1,7 +1,6 @@
 import random ,sys
 import pygame as pg
 
-# game vars
 
 # pygmae constints
 
@@ -18,24 +17,26 @@ class Board:
 
 	def __init__(self):
 		self.cardNum = 6
-		self.boardX = 3
-		self.boardY = 2
+		self.boardX = self.cardNum / 2
+		self.boardY = self.cardNum / 3
 		self.deck = []
 		self.board = []
 
-		# Making the cards
-		for x in range(cardNum):
-			deck.append(shapeList(x),x)
+		self.shapeList = [x for x  in range(3,(self.cardNum/2)+3)  ]
 
-	def boardSetUp(self):
-		shapeList = [x for x  in rnage(3,(self.cardNum/2)+3)  ]
+
+
+	def setup(self):
+
+		random.shuffle(self.board)
+
 		for x in range(self.cardNum/2):
 			self.board.append(x)
 			self.board.append(x)
 
-	def shuffle(self):
-		# this is to be only used at the start of a new game
-		random.shuffle(randBoard)
+		# Making the cards
+		for x in range(self.cardNum):
+			self.deck.append(self.shapeList[],x)
 
 
 	def printBoard(self):
