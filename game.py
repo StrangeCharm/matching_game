@@ -11,6 +11,8 @@ for x in range(cardNum/2):
 board = []
 randBoard = []
 
+polyPoints = (3,4,5,6,7,8)
+
 # pygmae constints
 
 BLACK = 0,0,0
@@ -19,30 +21,28 @@ RED = 255,0,0
 GREEN = 0,255,0
 BLUE = 0,0,255
 
-# this is where the amount of vertisies that each shape will have will be pulled from
-polyPoints = (3,4,5,6,7,8)
-
 size = width,heights = 320*3, 240*3
 
 
 class Board:
 
-    def __init__(self):
-        self.boardX = 3
-        self.boardY = 2
+	def __init__(self):
+		self.boardX = 3
+		self.boardY = 2
+		self.deck = []
 
-    def printBoard(self):
-        pass
+	def printBoard(self):
+		pass
 
-
-    def check(self):
-        # checking the first one
-        for x in range(0,self.boardX):
-            for y in range(0,self.boardY):
+	def check(self):
+		# checking the first one
+		for x in range(0,self.boardX):
+			for y in range(0,self.boardY):
 				pass
 
-    def shuffle(self):
-        random.shuffle(randBoard)
+	def shuffle(self):
+		# this is to be only used at the start of a new game
+		random.shuffle(randBoard)
 
 	for x in (0,3,6,9):
 		board.append([randBoard[x],randBoard[x+1],randBoard[x+2]])
