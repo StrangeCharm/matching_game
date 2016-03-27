@@ -1,4 +1,4 @@
-import random ,sys
+import random
 import pygame as pg
 
 shapeList = []
@@ -129,7 +129,7 @@ while True:
 
 	for event in pg.event.get():
 		if event.type == pg.QUIT:
-			sys.exit()
+			exit()
 
 		if event.type == pg.MOUSEBUTTONUP:
 			pass
