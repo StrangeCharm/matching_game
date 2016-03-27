@@ -29,18 +29,21 @@ class Board:
 		self.deck = []
 		self.board = []
 
-		shapeList = [x for x in range(3, (self.cardNum / 2) + 3)]
 
 	def setup(self):
-		random.shuffle(self.board)
+
+		shapeList = [x for x in range(3, (self.cardNum / 2) + 3)]
 
 		for x in range(self.cardNum / 2):
 			self.board.append(x)
 			self.board.append(x)
 
+		random.shuffle(self.board)
+		print self.board
 		# Making the cards
-		for x in range(self.cardNum):
-			self.deck.append((shapeList[self.board[x]], x))
+		for x in range(0, self.cardNum):
+			print x
+			self.deck.append(Card(shapeList[self.board[x]], x))
 
 	def printBoard(self):
 		pass
@@ -109,7 +112,7 @@ game = Board()
 
 game.setup()
 
-# this is the amount of clicks that the playr has done
+# this is the amount of clicks that the player has done
 click = 0
 
 while True:
