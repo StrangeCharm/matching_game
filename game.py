@@ -17,7 +17,7 @@ size = width, heights = 960, 720
 pg.init()
 
 screen = pg.display.set_mode(size)
-pg.display.set_caption("Card Bard")
+pg.display.set_caption("Card Flip")
 
 
 class Board:
@@ -32,7 +32,6 @@ class Board:
 		shapeList = [x for x in range(3, (self.cardNum / 2) + 3)]
 
 	def setup(self):
-
 		random.shuffle(self.board)
 
 		for x in range(self.cardNum / 2):
@@ -75,7 +74,7 @@ class Card:
 		self.y = y
 
 	def hoverCheck(self):
-		if pg.mouse.get_pos()[0] >= self.x and pg.mouse.get_pos()[1] >= self.y and  pg.mouse.get_pos()[0] <= self.x + self.xSize and pg.mouse.get_pos()[1] <= self.y + self.ySize:
+		if pg.mouse.get_pos()[0] >= self.x and pg.mouse.get_pos()[1] >= self.y and pg.mouse.get_pos()[0] <= self.x + self.xSize and pg.mouse.get_pos()[1] <= self.y + self.ySize:
 			print self.shape
 			self.color = WHITE
 			click += 1
@@ -84,18 +83,23 @@ class Card:
 		if self.shape == nshape:
 			self.found = True
 
-	def draw(self):
+	def drawCard(self):
 		pg.draw.rect(screen, self.color, pg.Rect(self.x, self.y, self.xSize, self.ySize))
 
-	def flip(self,flip):
+	def drawShape(self):
+		pass
+
+	def flip(self, flip):
 		if self.found:
 			# keep it flipped no matter the flip
 			pass
 		elif flip:
 			# face up
+			# Draw the card back then draw the shape
 			pass
 		else:
 			# face down
+			# Draw the card back only
 			pass
 
 # end of card
@@ -104,26 +108,9 @@ class Card:
 game = Board()
 
 game.setup()
-# pygame
 
 # this is the amount of clicks that the playr has done
 click = 0
-
-while False:
-
-	font = pg.font.SysFont('Calibri', 25, True, False)
-
-	title = font.render("SplashScreen.png", True, BLACK)
-
-	playerName = raw_input("what is your name\n>")
-	name = font.render(playerName, True, BLACK)
-
-	screen.fill(WHITE)
-	screen.blit(title, [200, 200])
-	screen.blit(name, [200, 500])
-	pg.display.flip()
-	break
-
 
 while True:
 
@@ -133,18 +120,15 @@ while True:
 
 		if event.type == pg.MOUSEBUTTONUP:
 			for x in range(game.cardNum):
-                game.deck[x].hoverCheck()
+				game.deck[x].hoverCheck()
 
 	if click > 2:
 		for x in range(game.cardNum):
-            game.deck[x].reset()
-
-# PG display
-	#font = pg.font.SysFont('Calibri', 25, True, False)
-	#text = font.render("SplashScreen.png", True, BLACK)
+			game.deck[x].reset()
 
 	screen.fill(WHITE)
-	#screen.blit(text, [200, 200])
 
+	for x in range(game.cardNum):
+		game.deck[x].drawCard()
 
 	pg.display.flip()
