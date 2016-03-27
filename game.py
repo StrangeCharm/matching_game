@@ -1,17 +1,17 @@
 import random ,sys
 import pygame as pg
 
-shapeList =[]
+shapeList = []
 
 # pygmae constints
 
-BLACK = 0,0,0
-WHITE = 255,255,255
-RED = 255,0,0
-GREEN = 0,255,0
-BLUE = 0,0,255
+BLACK = 0, 0, 0
+WHITE = 255, 255, 255
+RED = 255, 0, 0
+GREEN = 0, 255, 0
+BLUE = 0, 0, 255
 
-size = width,heights = 320*3, 240*3
+size = width, heights = 320 * 3, 240 * 3
 
 
 class Board:
@@ -29,7 +29,7 @@ class Board:
 
 		random.shuffle(self.board)
 
-		for x in range(self.cardNum/2):
+		for x in range(self.cardNum / 2):
 			self.board.append(x)
 			self.board.append(x)
 
@@ -43,8 +43,8 @@ class Board:
 
 	def check(self):
 		# checking the first one
-		for x in range(0,self.boardX):
-			for y in range(0,self.boardY):
+		for x in range(0, self.boardX):
+			for y in range(0, self.boardY):
 				pass
 
 # end of Board
@@ -64,7 +64,7 @@ class Card:
 	def reset(self):
 		self.color = BLUE
 
-	def place(self,x,y):
+	def place(self, x, y):
 		self.x = x
 		self.y = y
 
@@ -72,9 +72,9 @@ class Card:
 		if pg.mouse.get_pos()[0] >= 30 and pg.mouse.get_pos()[1] >= 30 and  pg.mouse.get_pos()[0] <= 90 and pg.mouse.get_pos()[1] <= 90 :
 			print "1"
 			self.color=WHITE
-			click+=1
+			click += 1
 
-	def cardChek(self,nShape):
+	def cardChek(self,shapeList):
 		if self.shape == nShape:
 			self.found = True
 
