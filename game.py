@@ -1,6 +1,7 @@
 import random ,sys
 import pygame as pg
 
+shapeList =[]
 
 # pygmae constints
 
@@ -22,9 +23,7 @@ class Board:
 		self.deck = []
 		self.board = []
 
-		self.shapeList = [x for x  in range(3,(self.cardNum/2)+3)  ]
-
-
+		shapeList = [x for x in range(3, (self.cardNum / 2) + 3)]
 
 	def setup(self):
 
@@ -36,7 +35,7 @@ class Board:
 
 		# Making the cards
 		for x in range(self.cardNum):
-			self.deck.append(self.shapeList[],x)
+			self.deck.append((shapeList[self.board[x]], x))
 
 
 	def printBoard(self):
@@ -48,16 +47,10 @@ class Board:
 			for y in range(0,self.boardY):
 				pass
 
-	for x in (0,3,6,9):
-		board.append([randBoard[x],randBoard[x+1],randBoard[x+2]])
-	#board.append([randBoard[0],randBoard[1],randBoard[2]])
-	#board.append([randBoard[3],randBoard[4],randBoard[5]])
-	#board.append([randBoard[6],randBoard[7],randBoard[8]])
-	#board.append([randBoard[9],randBoard[10],randBoard[11]])
+# end of Board
 
-#end of Board
 
-class card:
+class Card:
 
 	def __init__(self, shape, number):
 		self.number = number
@@ -86,23 +79,19 @@ class card:
 			self.found = True
 
 	def draw(self):
-		pg.draw.rect(screen, c1, pg.Rect(self.x, self.y, 60, 60))
+		pg.draw.rect(screen, self.color, pg.Rect(self.x, self.y, 60, 60))
 
 
-	def flip(self,bool):
-		if self.found == True:
-			#keep it fliped nomatter the bool
+	def flip(self,flip):
+		if self.found:
+			#keep it fliped nomatter the flip
 			pass
-		elif bool == True:
+		elif flip:
 			# face up
 			pass
-		elif bool == False:
+		else:
 			# face down
 			pass
-		else:
-			#Just incase
-
-			raise Exception("No card input")
 
 #end of card
 
@@ -112,7 +101,7 @@ screen = pg.display.set_mode(size)
 pg.display.set_caption("Card Bard")
 game = Board()
 
-game.shuffle()
+game.setup()
 #pygame
 
 #this is the amount of clicks that the playr has done
@@ -146,7 +135,7 @@ while True:
 			#for loop over the card spots
 			#card.check
 
-	if clik > 2:
+	if click > 2:
 		pass
 
 #PG display
