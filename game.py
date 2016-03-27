@@ -11,12 +11,14 @@ RED = 255, 0, 0
 GREEN = 0, 255, 0
 BLUE = 0, 0, 255
 
-size = width, heights = 320 * 3, 240 * 3
+# could you dimanicly chang the screen size?
+size = width, heights = 960, 720
 
 pg.init()
 
 screen = pg.display.set_mode(size)
 pg.display.set_caption("Card Bard")
+
 
 class Board:
 
@@ -41,7 +43,6 @@ class Board:
 		for x in range(self.cardNum):
 			self.deck.append((shapeList[self.board[x]], x))
 
-
 	def printBoard(self):
 		pass
 
@@ -58,12 +59,13 @@ class Card:
 
 	def __init__(self, shape, number):
 		self.number = number
-		self.shape = shape[0]
-		self.points = shape[1]
+		self.shape = shape
 		self.found = False
 		self.color = BLUE
 		self.x = 0
 		self.y = 0
+		self.xSize = 60
+		self.ySize = 60
 
 	def reset(self):
 		self.color = BLUE
@@ -73,9 +75,9 @@ class Card:
 		self.y = y
 
 	def hoverCheck(self):
-		if pg.mouse.get_pos()[0] >= 30 and pg.mouse.get_pos()[1] >= 30 and  pg.mouse.get_pos()[0] <= 90 and pg.mouse.get_pos()[1] <= 90 :
-			print "1"
-			self.color=WHITE
+		if pg.mouse.get_pos()[0] >= self.x and pg.mouse.get_pos()[1] >= self.y and  pg.mouse.get_pos()[0] <= self.x + self.xSize and pg.mouse.get_pos()[1] <= self.y + self.ySize:
+			print self.shape
+			self.color = WHITE
 			click += 1
 
 	def cardChek(self, nshape):
@@ -83,12 +85,11 @@ class Card:
 			self.found = True
 
 	def draw(self):
-		pg.draw.rect(screen, self.color, pg.Rect(self.x, self.y, 60, 60))
-
+		pg.draw.rect(screen, self.color, pg.Rect(self.x, self.y, self.xSize, self.ySize))
 
 	def flip(self,flip):
 		if self.found:
-			#keep it fliped nomatter the flip
+			# keep it flipped no matter the flip
 			pass
 		elif flip:
 			# face up
@@ -97,15 +98,15 @@ class Card:
 			# face down
 			pass
 
-#end of card
+# end of card
 
 
 game = Board()
 
 game.setup()
-#pygame
+# pygame
 
-#this is the amount of clicks that the playr has done
+# this is the amount of clicks that the playr has done
 click = 0
 
 while False:
@@ -116,7 +117,6 @@ while False:
 
 	playerName = raw_input("what is your name\n>")
 	name = font.render(playerName, True, BLACK)
-
 
 	screen.fill(WHITE)
 	screen.blit(title, [200, 200])
@@ -132,14 +132,14 @@ while True:
 			exit()
 
 		if event.type == pg.MOUSEBUTTONUP:
-			pass
-			#for loop over the card spots
-			#card.check
+			for x in range(game.cardNum):
+                game.deck[x].hoverCheck()
 
 	if click > 2:
-		pass
+		for x in range(game.cardNum):
+            game.deck[x].reset()
 
-#PG display
+# PG display
 	#font = pg.font.SysFont('Calibri', 25, True, False)
 	#text = font.render("SplashScreen.png", True, BLACK)
 
