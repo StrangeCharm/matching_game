@@ -13,6 +13,10 @@ BLUE = 0, 0, 255
 
 size = width, heights = 320 * 3, 240 * 3
 
+pg.init()
+
+screen = pg.display.set_mode(size)
+pg.display.set_caption("Card Bard")
 
 class Board:
 
@@ -74,8 +78,8 @@ class Card:
 			self.color=WHITE
 			click += 1
 
-	def cardChek(self,shapeList):
-		if self.shape == nShape:
+	def cardChek(self, nshape):
+		if self.shape == nshape:
 			self.found = True
 
 	def draw(self):
@@ -95,10 +99,7 @@ class Card:
 
 #end of card
 
-pg.init()
 
-screen = pg.display.set_mode(size)
-pg.display.set_caption("Card Bard")
 game = Board()
 
 game.setup()
