@@ -18,7 +18,7 @@ BLUE = 0, 0, 255
 colorList = [YELLOW, MAGENTA, CYAN, RED, GREEN]
 
 # could you dimanicly chang the screen size?
-size = width, heights = 960, 720
+size = width, heights = 570, 570
 
 pg.init()
 
@@ -29,7 +29,7 @@ pg.display.set_caption("Card Flip")
 class Board:
 
 	def __init__(self):
-		self.cardNum = 6
+		self.cardNum = 8
 		self.boardX = self.cardNum / 2
 		self.boardY = self.cardNum / 3
 
@@ -54,10 +54,13 @@ class Board:
 	def setLocation(self, x):
 
 		# I need to change the 60s in here to not be hard coded in later on
-		if x < 3:
+		if x < 6:
 			return (x + 1) * 30 + (60 * x), 30
-		elif x <= 5:
-			x -= 3
+		elif x <= 7:
+			x -= 6
+			return (x + 1) * 30 + (60 * x), 120
+		elif x <= 10:
+			x -= 9
 			return (x + 1) * 30 + (60 * x), 120
 
 	def cardCheck(self):
@@ -143,7 +146,7 @@ while True:
 
 	screen.fill(WHITE)
 
-	screen.blit(text, [500, 30])
+	screen.blit(text, [30, 30])
 
 	for card in game.deck:
 		card.drawCard()
