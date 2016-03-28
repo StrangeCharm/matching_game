@@ -84,11 +84,12 @@ class Card:
 		self.x = x
 		self.y = y
 
-	def hoverCheck(self,click):
+	def hoverCheck(self, click):
 		if pg.mouse.get_pos()[0] >= self.x and pg.mouse.get_pos()[1] >= self.y and pg.mouse.get_pos()[0] <= self.x + self.xSize and pg.mouse.get_pos()[1] <= self.y + self.ySize:
 			print self.number
 			self.color = WHITE
-			click += 1
+			return int(click + 1)
+
 
 	def cardChek(self, nshape):
 		if self.shape == nshape:
@@ -131,11 +132,15 @@ while True:
 
 		if event.type == pg.MOUSEBUTTONUP:
 			for x in range(game.cardNum):
-				game.deck[x].hoverCheck(click)
+				try:
+					click += game.deck[x].hoverCheck(click)
+				except:
+					pass
 
-	if click > 2:
+	if click > 3:
 		for x in range(game.cardNum):
 			game.deck[x].reset()
+		click = 0
 
 	screen.fill(WHITE)
 
