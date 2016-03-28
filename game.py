@@ -15,7 +15,7 @@ GREEN = 0, 255, 0
 
 BLUE = 0, 0, 255
 
-colorList = [YELLOW, YELLOW, MAGENTA, MAGENTA, CYAN, CYAN, RED, RED, GREEN, GREEN]
+colorList = [YELLOW, MAGENTA, CYAN, RED, GREEN]
 
 # could you dimanicly chang the screen size?
 size = width, heights = 960, 720
@@ -63,10 +63,10 @@ class Board:
 		gameScore = 0
 
 		for card in self.deck:
-			if card.color == WHITE:
+			if card.color != WHITE:
 				for card2 in self.deck:
 
-					if card.number != card2.number and card2.color == WHITE and card.shape == card2.shape and not card.found and not card2.found:
+					if card.number != card2.number and card2.color != WHITE and card.shape == card2.shape and not card.found and not card2.found:
 						gameScore += 1
 						card.found = True
 						card2.found = True
