@@ -27,8 +27,10 @@ class Board:
 		self.cardNum = 6
 		self.boardX = self.cardNum / 2
 		self.boardY = self.cardNum / 3
+
 		self.deck = []
-		self.board = []
+		self.cardArrangement = []
+
 		self.score = 0
 
 
@@ -37,13 +39,13 @@ class Board:
 		shapeList = [x for x in range(3, (self.cardNum / 2) + 3)]
 
 		for x in range(self.cardNum / 2):
-			self.board.append(x)
-			self.board.append(x)
+			self.cardArrangement.append(x)
+			self.cardArrangement.append(x)
 
-		random.shuffle(self.board)
+		random.shuffle(self.cardArrangement)
 		# Making the cards
 		for x in range(0, self.cardNum):
-			self.deck.append(Card(shapeList[self.board[x]], x, self.setLocation(x)))
+			self.deck.append(Card(shapeList[self.cardArrangement[x]], x, self.setLocation(x)))
 
 	def setLocation(self, x):
 
@@ -63,15 +65,6 @@ class Board:
 						gameScore += 1
 		self.score += gameScore / 2
 
-	def printBoard(self):
-		pass
-
-	def check(self):
-		# checking the first one
-		for x in range(0, self.boardX):
-			for y in range(0, self.boardY):
-				pass
-
 # end of Board
 
 
@@ -80,10 +73,14 @@ class Card:
 	def __init__(self, shape, number, location):
 		self.number = number
 		self.shape = shape
+
 		self.found = False
+		# the color will indelicate of the card is flipped.
 		self.color = BLUE
+
 		self.x = location[0]
 		self.y = location[1]
+
 		self.xSize = 60
 		self.ySize = 60
 
@@ -105,19 +102,6 @@ class Card:
 
 	def drawShape(self):
 		pass
-
-	def flip(self, flip):
-		if self.found:
-			# keep it flipped no matter the flip
-			pass
-		elif flip:
-			# face up
-			# Draw the card back then draw the shape
-			pass
-		else:
-			# face down
-			# Draw the card back only
-			pass
 
 # end of card
 
@@ -144,11 +128,6 @@ while True:
 
 	game.cardCheck()
 
-	if click >= 2:
-		for x in range(game.cardNum):
-			game.deck[x].reset()
-		click = 0
-
 	font = pg.font.SysFont('Calibri', 25, True, False)
 	text = font.render(str(game.score), True, BLACK)
 
@@ -158,3 +137,8 @@ while True:
 		game.deck[x].drawCard()
 
 	pg.display.flip()
+	if click >= 2:
+		sleep(1)
+		for x in range(game.cardNum):
+			game.deck[x].reset()
+		click = 0
