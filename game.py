@@ -1,5 +1,6 @@
 import random
 import pygame as pg
+from time import sleep
 
 shapeList = []
 
@@ -28,6 +29,7 @@ class Board:
 		self.boardY = self.cardNum / 3
 		self.deck = []
 		self.board = []
+		self.score = 0
 
 
 	def setup(self):
@@ -52,6 +54,14 @@ class Board:
 			x -= 3
 			return (x + 1) * 30 + (60 * x), 120
 
+	def cardCheck(self):
+		gameScore = 0
+		for card in self.deck:
+			if card.color == WHITE:
+				for card2 in self.deck:
+					if card.number != card2.number and card2.color == WHITE and card.shape == card2.shape:
+						gameScore += 1
+		self.score += gameScore / 2
 
 	def printBoard(self):
 		pass
@@ -84,16 +94,11 @@ class Card:
 		self.x = x
 		self.y = y
 
-	def hoverCheck(self, click):
+	def hoverCheck(self):
 		if pg.mouse.get_pos()[0] >= self.x and pg.mouse.get_pos()[1] >= self.y and pg.mouse.get_pos()[0] <= self.x + self.xSize and pg.mouse.get_pos()[1] <= self.y + self.ySize:
 			print self.number
 			self.color = WHITE
-			return int(click + 1)
-
-
-	def cardChek(self, nshape):
-		if self.shape == nshape:
-			self.found = True
+			return 1
 
 	def drawCard(self):
 		pg.draw.rect(screen, self.color, pg.Rect(self.x, self.y, self.xSize, self.ySize))
@@ -133,17 +138,22 @@ while True:
 		if event.type == pg.MOUSEBUTTONUP:
 			for x in range(game.cardNum):
 				try:
-					click += game.deck[x].hoverCheck(click)
+					click += game.deck[x].hoverCheck()
 				except:
 					pass
 
-	if click > 3:
+	game.cardCheck()
+
+	if click >= 2:
 		for x in range(game.cardNum):
 			game.deck[x].reset()
 		click = 0
 
-	screen.fill(WHITE)
+	font = pg.font.SysFont('Calibri', 25, True, False)
+	text = font.render(str(game.score), True, BLACK)
 
+	screen.fill(WHITE)
+	screen.blit(text, [500, 30])
 	for x in range(game.cardNum):
 		game.deck[x].drawCard()
 
