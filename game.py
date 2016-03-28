@@ -39,11 +39,19 @@ class Board:
 			self.board.append(x)
 
 		random.shuffle(self.board)
-		print self.board
 		# Making the cards
 		for x in range(0, self.cardNum):
-			print x
-			self.deck.append(Card(shapeList[self.board[x]], x))
+			self.deck.append(Card(shapeList[self.board[x]], x, self.setLocation(x)))
+
+	def setLocation(self, x):
+
+		# I need to change the 60s in here to not be hard coded in later on
+		if x < 3:
+			return (x + 1) * 30 + (60 * x), 30
+		elif x <= 5:
+			x -= 3
+			return (x + 1) * 30 + (60 * x), 120
+
 
 	def printBoard(self):
 		pass
@@ -59,13 +67,13 @@ class Board:
 
 class Card:
 
-	def __init__(self, shape, number):
+	def __init__(self, shape, number, location):
 		self.number = number
 		self.shape = shape
 		self.found = False
 		self.color = BLUE
-		self.x = 0
-		self.y = 0
+		self.x = location[0]
+		self.y = location[1]
 		self.xSize = 60
 		self.ySize = 60
 
@@ -76,9 +84,9 @@ class Card:
 		self.x = x
 		self.y = y
 
-	def hoverCheck(self):
+	def hoverCheck(self,click):
 		if pg.mouse.get_pos()[0] >= self.x and pg.mouse.get_pos()[1] >= self.y and pg.mouse.get_pos()[0] <= self.x + self.xSize and pg.mouse.get_pos()[1] <= self.y + self.ySize:
-			print self.shape
+			print self.number
 			self.color = WHITE
 			click += 1
 
@@ -123,7 +131,7 @@ while True:
 
 		if event.type == pg.MOUSEBUTTONUP:
 			for x in range(game.cardNum):
-				game.deck[x].hoverCheck()
+				game.deck[x].hoverCheck(click)
 
 	if click > 2:
 		for x in range(game.cardNum):
