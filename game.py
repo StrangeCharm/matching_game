@@ -138,11 +138,16 @@ while True:
 	text = font.render(str(game.score), True, BLACK)
 
 	screen.fill(WHITE)
+
 	screen.blit(text, [500, 30])
 	for x in range(game.cardNum):
 		game.deck[x].drawCard()
 
+	pg.draw.polygon(screen, RED, ((10, 10), (10, 20), (20, 20), (20, 10)), 0)
+
 	pg.display.flip()
+
+
 	if click >= 2:
 		sleep(1)
 		for x in range(game.cardNum):
