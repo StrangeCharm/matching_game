@@ -140,13 +140,14 @@ while True:
 	screen.fill(WHITE)
 
 	screen.blit(text, [500, 30])
-	for x in range(game.cardNum):
-		game.deck[x].drawCard()
 
-	pg.draw.polygon(screen, RED, ((10, 10), (10, 20), (20, 20), (20, 10)), 0)
+	for card in game.deck:
+		card.drawCard()
+
+		if card.color == WHITE:
+			pg.draw.polygon(screen, RED, ((150, 150), (100, 200), (200, 200)), 0)
 
 	pg.display.flip()
-
 
 	if click >= 2:
 		sleep(1)
