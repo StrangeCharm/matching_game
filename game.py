@@ -2,15 +2,20 @@ import random
 import pygame as pg
 from time import sleep
 
-shapeList = []
-
 # pygmae constints
 
 BLACK = 0, 0, 0
 WHITE = 255, 255, 255
+
+YELLOW = 255, 255, 0
+MAGENTA = 255, 0, 255
+CYAN = 0, 255, 255
 RED = 255, 0, 0
 GREEN = 0, 255, 0
+
 BLUE = 0, 0, 255
+
+colorList = [YELLOW, YELLOW, MAGENTA, MAGENTA, CYAN, CYAN, RED, RED, GREEN, GREEN]
 
 # could you dimanicly chang the screen size?
 size = width, heights = 960, 720
@@ -36,8 +41,6 @@ class Board:
 
 	def setup(self):
 
-		shapeList = [x for x in range(3, (self.cardNum / 2) + 3)]
-
 		for x in range(self.cardNum / 2):
 			self.cardArrangement.append(x)
 			self.cardArrangement.append(x)
@@ -45,7 +48,7 @@ class Board:
 		random.shuffle(self.cardArrangement)
 		# Making the cards
 		for x in range(0, self.cardNum):
-			self.deck.append(Card(shapeList[self.cardArrangement[x]], x, self.setLocation(x)))
+			self.deck.append(Card(colorList[self.cardArrangement[x]], x, self.setLocation(x)))
 
 	def setLocation(self, x):
 
@@ -75,9 +78,9 @@ class Board:
 
 class Card:
 
-	def __init__(self, shape, number, location):
+	def __init__(self, cardColor, number, location):
 		self.number = number
-		self.shape = shape
+		self.cardColor = cardColor
 
 		self.found = False
 		# the color will indelicate of the card is flipped.
@@ -100,7 +103,7 @@ class Card:
 	def hoverCheck(self):
 		if pg.mouse.get_pos()[0] >= self.x and pg.mouse.get_pos()[1] >= self.y and pg.mouse.get_pos()[0] <= self.x + self.xSize and pg.mouse.get_pos()[1] <= self.y + self.ySize:
 			print self.number
-			self.color = WHITE
+			self.color = self.cardColor
 			return 1
 
 	def drawCard(self):
@@ -143,9 +146,6 @@ while True:
 
 	for card in game.deck:
 		card.drawCard()
-
-		if card.color == WHITE:
-			pg.draw.polygon(screen, RED, ((150, 150), (100, 200), (200, 200)), 0)
 
 	pg.display.flip()
 
