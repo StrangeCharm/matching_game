@@ -44,8 +44,9 @@ class Board:
 		for x in range(self.cardNum / 2):
 			self.cardArrangement.append(x)
 			self.cardArrangement.append(x)
-
+		
 		random.shuffle(self.cardArrangement)
+		
 		# Making the cards
 		for x in range(0, self.cardNum):
 			self.deck.append(Card(colorList[self.cardArrangement[x]], x, self.setLocation(x)))
@@ -63,10 +64,10 @@ class Board:
 		gameScore = 0
 
 		for card in self.deck:
-			if card.color != WHITE:
+			if card.color != BLUE:
 				for card2 in self.deck:
 
-					if card.number != card2.number and card2.color != WHITE and card.cardColor == card2.cardColor and not card.found and not card2.found:
+					if card.number != card2.number and card2.color != BLUE and card.cardColor == card2.cardColor and not card.found and not card2.found:
 						gameScore += 1
 						card.found = True
 						card2.found = True
