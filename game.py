@@ -58,12 +58,17 @@ class Board:
 
 	def cardCheck(self):
 		gameScore = 0
+
 		for card in self.deck:
 			if card.color == WHITE:
 				for card2 in self.deck:
-					if card.number != card2.number and card2.color == WHITE and card.shape == card2.shape:
+
+					if card.number != card2.number and card2.color == WHITE and card.shape == card2.shape and not card.found and not card2.found:
 						gameScore += 1
-		self.score += gameScore / 2
+						card.found = True
+						card2.found = True
+
+		self.score += gameScore
 
 # end of Board
 
@@ -85,7 +90,8 @@ class Card:
 		self.ySize = 60
 
 	def reset(self):
-		self.color = BLUE
+		if not self.found:
+			self.color = BLUE
 
 	def place(self, x, y):
 		self.x = x
