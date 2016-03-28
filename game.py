@@ -66,7 +66,7 @@ class Board:
 			if card.color != WHITE:
 				for card2 in self.deck:
 
-					if card.number != card2.number and card2.color != WHITE and card.shape == card2.shape and not card.found and not card2.found:
+					if card.number != card2.number and card2.color != WHITE and card.cardColor == card2.cardColor and not card.found and not card2.found:
 						gameScore += 1
 						card.found = True
 						card2.found = True
