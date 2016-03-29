@@ -54,14 +54,7 @@ class Board:
 	def setLocation(self, x):
 
 		# I need to change the 60s in here to not be hard coded in later on
-		if x < 6:
-			return (x + 1) * 30 + (60 * x), 30
-		elif x <= 7:
-			x -= 6
-			return (x + 1) * 30 + (60 * x), 120
-		elif x <= 10:
-			x -= 9
-			return (x + 1) * 30 + (60 * x), 120
+		return (x + 1) * 30 + (60 * x), 30 + 90 * (x / 6)
 
 	def cardCheck(self):
 		gameScore = 0
