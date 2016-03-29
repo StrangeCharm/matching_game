@@ -52,9 +52,14 @@ class Board:
 			self.deck.append(Card(colorList[self.cardArrangement[x]], x, self.setLocation(x)))
 
 	def setLocation(self, x):
-
+		outArr = []
+		y = x
 		# I need to change the 60s in here to not be hard coded in later on
-		return (x + 1) * 30 + (60 * x), 30 + 90 * (x / 6)
+		if x % 6 == 0 and x != 0:
+			x = 0
+		outArr.append((x + 1) * 30 + (60 * x))
+		outArr.append(30 + 90 * (y / 6))
+		return outArr
 
 	def cardCheck(self):
 		gameScore = 0
