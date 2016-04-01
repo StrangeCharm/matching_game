@@ -1,5 +1,5 @@
 import random
-import pygame as pg
+	import pygame as pg
 from time import sleep
 
 # pygmae constints
@@ -15,7 +15,24 @@ GREEN = 0, 255, 0
 
 BLUE = 0, 0, 255
 
+PURPLE = 156,39,176
+DEEPPRUPLE = 103,58,183
+INDIGO = 63,81,181
+MBLUE = 33,150,243
+LIGHTBLUE = 3,169,244
+MCYAN = 0,188,212
+TEAL = 0,150,136
+MGREEN = 76,175,80
+LIGHTGREEN = 139,195,74
+LIME =  205,220,57
+MYELLOW = 255,235,59
+AMBER = 255,193,7
+ORANGE = 255,87,34
+BROWN = 121,85,72
+
+
 colorList = [YELLOW, MAGENTA, CYAN, RED, GREEN]
+mColorList = [PURPLE, DEEPPRUPLE, INDIGO, MBLUE, LIGHTBLUE , MCYAN, TEAL, MGREEN, LIGHTGREEN, LIME, MYELLOW, AMBER, ORANGE, BROWN]
 
 # could you dimanicly chang the screen size?
 size = width, heights = 570, 570
@@ -29,7 +46,7 @@ pg.display.set_caption("Card Flip")
 class Board:
 
 	def __init__(self):
-		self.cardNum = 8
+		self.cardNum = 6
 		self.boardX = self.cardNum / 2
 		self.boardY = self.cardNum / 3
 
@@ -44,12 +61,12 @@ class Board:
 		for x in range(self.cardNum / 2):
 			self.cardArrangement.append(x)
 			self.cardArrangement.append(x)
-		
+
 		random.shuffle(self.cardArrangement)
-		
+
 		# Making the cards
 		for x in range(0, self.cardNum):
-			self.deck.append(Card(colorList[self.cardArrangement[x]], x, self.setLocation(x)))
+			self.deck.append(Card(mColorList[self.cardArrangement[x]], x, self.setLocation(x)))
 
 	def setLocation(self, x):
 		outArr = []
@@ -121,6 +138,23 @@ game = Board()
 
 game.setup()
 
+font = pg.font.SysFont('Calibri', 25, True, False)
+
+while True:
+	welcomeScreen = font.render("Welcome to mathing game", True, BLACK)
+
+	for event in pg.event.get():
+		if event.type == pg.QUIT:
+			exit()
+		if event.type == pg.MOUSEBUTTONUP:
+			if pg.mouse.get_pos()[0] >= 500 and pg.mouse.get_pos()[1]  >= 500 and pg.mouse.get_pos()[0] <= 1000 and pg.mouse.get_pos()[1] <= 600:
+				break
+
+	screen.fill(WHITE)
+	screen.blit(welcomeScreen, [40, 80])
+	pg.draw.rect(screen, RED, pg.Rect(500, 500, 500, 100))
+	screen.flip()
+
 # this is the amount of clicks that the player has done
 click = 0
 
@@ -139,7 +173,7 @@ while True:
 
 	game.cardCheck()
 
-	font = pg.font.SysFont('Calibri', 25, True, False)
+
 	text = font.render(str(game.score), True, BLACK)
 
 	screen.fill(WHITE)
