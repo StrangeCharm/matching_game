@@ -1,5 +1,5 @@
 import random
-	import pygame as pg
+import pygame as pg
 from time import sleep
 
 # pygmae constints
@@ -53,7 +53,7 @@ class Board:
 		self.deck = []
 		self.cardArrangement = []
 
-		self.score = 0
+		self.score = 10
 
 
 	def setup(self):
@@ -66,7 +66,7 @@ class Board:
 
 		# Making the cards
 		for x in range(0, self.cardNum):
-			self.deck.append(Card(mColorList[self.cardArrangement[x]], x, self.setLocation(x)))
+			self.deck.append(Card(colorList[self.cardArrangement[x]], x, self.setLocation(x)))
 
 	def setLocation(self, x):
 		outArr = []
@@ -91,7 +91,6 @@ class Board:
 						card2.found = True
 
 		self.score += gameScore
-
 # end of Board
 
 
@@ -140,20 +139,21 @@ game.setup()
 
 font = pg.font.SysFont('Calibri', 25, True, False)
 
-while True:
+start = True
+while start:
 	welcomeScreen = font.render("Welcome to mathing game", True, BLACK)
 
 	for event in pg.event.get():
 		if event.type == pg.QUIT:
 			exit()
 		if event.type == pg.MOUSEBUTTONUP:
-			if pg.mouse.get_pos()[0] >= 500 and pg.mouse.get_pos()[1]  >= 500 and pg.mouse.get_pos()[0] <= 1000 and pg.mouse.get_pos()[1] <= 600:
-				break
+			if pg.mouse.get_pos()[0] >= 50 and pg.mouse.get_pos()[1]  >= 250 and pg.mouse.get_pos()[0] <= 500 and pg.mouse.get_pos()[1] <= 350:
+				start = False
 
 	screen.fill(WHITE)
 	screen.blit(welcomeScreen, [40, 80])
-	pg.draw.rect(screen, RED, pg.Rect(500, 500, 500, 100))
-	screen.flip()
+	pg.draw.rect(screen, GREEN, pg.Rect(50, 250, 450, 100))
+	pg.display.flip()
 
 # this is the amount of clicks that the player has done
 click = 0
@@ -178,7 +178,7 @@ while True:
 
 	screen.fill(WHITE)
 
-	screen.blit(text, [30, 30])
+	screen.blit(text, [30, 0])
 
 	for card in game.deck:
 		card.drawCard()
@@ -190,3 +190,21 @@ while True:
 		for x in range(game.cardNum):
 			game.deck[x].reset()
 		click = 0
+		game.score-=1
+
+
+	endCount = 0
+	for card in game.deck:
+		if card.found == True:
+			endCount+=1
+		else:
+			break
+	if endCount == game.cardNum:
+		screen.fill(WHITE)
+		screen.blit(font.render("would you like to play agine", True, BLACK),[100,100])
+		pg.display.flip()
+		print "would you like to play agine?"
+		if raw_input("y/n\n>").lower()!="y":
+			break
+		game = Board()
+		game.setup()
