@@ -153,6 +153,7 @@ while start:
 	screen.fill(WHITE)
 	screen.blit(welcomeScreen, [40, 80])
 	pg.draw.rect(screen, GREEN, pg.Rect(50, 250, 450, 100))
+	screen.blit(font.render("Play", True, BLACK), [250, 280])
 	pg.display.flip()
 
 # this is the amount of clicks that the player has done
@@ -190,21 +191,34 @@ while True:
 		for x in range(game.cardNum):
 			game.deck[x].reset()
 		click = 0
-		game.score-=1
+		game.score -= 1
 
 
 	endCount = 0
 	for card in game.deck:
 		if card.found == True:
-			endCount+=1
+			endCount += 1
 		else:
 			break
 	if endCount == game.cardNum:
-		screen.fill(WHITE)
-		screen.blit(font.render("would you like to play agine", True, BLACK),[100,100])
-		pg.display.flip()
-		print "would you like to play agine?"
-		if raw_input("y/n\n>").lower()!="y":
-			break
-		game = Board()
-		game.setup()
+		retry = True
+		while retry:
+
+			for event in pg.event.get():
+				if event.type == pg.QUIT:
+					exit()
+				if event.type == pg.MOUSEBUTTONUP:
+					if pg.mouse.get_pos()[0] >= 50 and pg.mouse.get_pos()[1] >= 250 and pg.mouse.get_pos()[0] <= 500 and pg.mouse.get_pos()[1] <= 350:
+						game = Board()
+						game.setup()
+						retry = False
+					if pg.mouse.get_pos()[0] >= 50 and pg.mouse.get_pos()[1] >= 450:
+						exit()
+
+			screen.fill(WHITE)
+			screen.blit(font.render("you got "+str(game.score) + ". would you like to play agine?", True, BLACK),[100,100])
+			pg.draw.rect(screen, GREEN, pg.Rect(50, 250, 450, 100))
+			pg.draw.rect(screen, RED, pg.Rect(50, 450, 450, 100))
+			screen.blit(font.render("Yes", True, BLACK),[250,280])
+			screen.blit(font.render("No", True, BLACK),[250,500])
+			pg.display.flip()
