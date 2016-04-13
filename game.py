@@ -16,23 +16,20 @@ GREEN = 0, 255, 0
 BLUE = 0, 0, 255
 
 PURPLE = 156,39,176
-DEEPPRUPLE = 103,58,183
 INDIGO = 63,81,181
 MBLUE = 33,150,243
-LIGHTBLUE = 3,169,244
-MCYAN = 0,188,212
-TEAL = 0,150,136
+
 MGREEN = 76,175,80
-LIGHTGREEN = 139,195,74
 LIME =  205,220,57
-MYELLOW = 255,235,59
 AMBER = 255,193,7
 ORANGE = 255,87,34
 BROWN = 121,85,72
+GREAY = 199,199,199
+DARKLIGHTBLUE = 38,86,110
+MAROON = 118,0,0
 
 
-colorList = [YELLOW, MAGENTA, CYAN, RED, GREEN]
-mColorList = [PURPLE, DEEPPRUPLE, INDIGO, MBLUE, LIGHTBLUE , MCYAN, TEAL, MGREEN, LIGHTGREEN, LIME, MYELLOW, AMBER, ORANGE, BROWN]
+colorList = [YELLOW, MAGENTA, CYAN, RED, GREEN, PURPLE, LIME, AMBER, ORANGE, BROWN, MBLUE, MGREEN, INDIGO, GREAY, DARKLIGHTBLUE, MAROON , (36,78,56), (166,134,255)]
 
 # could you dimanicly chang the screen size?
 size = width, heights = 570, 570
@@ -45,16 +42,15 @@ pg.display.set_caption("Card Flip")
 
 class Board:
 
-	def __init__(self):
-		self.cardNum = 6
+	def __init__(self, amount=6,moves=100):
+		self.cardNum = amount*2
 		self.boardX = self.cardNum / 2
 		self.boardY = self.cardNum / 3
 
 		self.deck = []
 		self.cardArrangement = []
 
-		self.score = 10
-
+		self.score = moves
 
 	def setup(self):
 
@@ -69,14 +65,19 @@ class Board:
 			self.deck.append(Card(colorList[self.cardArrangement[x]], x, self.setLocation(x)))
 
 	def setLocation(self, x):
-		outArr = []
 		y = x
 		# I need to change the 60s in here to not be hard coded in later on
-		if x % 6 == 0 and x != 0:
-			x = 0
-		outArr.append((x + 1) * 30 + (60 * x))
-		outArr.append(30 + 90 * (y / 6))
-		return outArr
+		if x >= 6 and x< 12:
+			x = x-6
+		elif x >= 12 and x<18 :
+			x = x-12
+		elif x >= 18 and x<24:
+			x = x-18
+		elif x >= 24 and x< 30:
+			x = x-24
+		elif x >= 30 and x<36:
+			x = x-30
+		return ((x + 1) * 30 + (60 * x)),(30 + 90 * (y / 6))
 
 	def cardCheck(self):
 		gameScore = 0
@@ -141,7 +142,7 @@ font = pg.font.SysFont('Calibri', 25, True, False)
 
 start = True
 while start:
-	welcomeScreen = font.render("Welcome to mathing game", True, BLACK)
+	welcomeScreen = font.render("Welcome to matching game.", True, BLACK)
 
 	for event in pg.event.get():
 		if event.type == pg.QUIT:
@@ -153,6 +154,12 @@ while start:
 	screen.fill(WHITE)
 	screen.blit(welcomeScreen, [40, 80])
 	pg.draw.rect(screen, GREEN, pg.Rect(50, 250, 450, 100))
+
+	pg.draw.rect(screen, GREEN, pg.Rect(50, 400, 90, 90))
+	pg.draw.rect(screen, YELLOW, pg.Rect(150, 400, 90, 90))
+	pg.draw.rect(screen, ORANGE, pg.Rect(250, 400, 90, 90))
+	pg.draw.rect(screen, RED, pg.Rect(350, 400, 90, 90))
+
 	screen.blit(font.render("Play", True, BLACK), [250, 280])
 	pg.display.flip()
 
@@ -216,7 +223,7 @@ while True:
 						exit()
 
 			screen.fill(WHITE)
-			screen.blit(font.render("you got "+str(game.score) + ". would you like to play agine?", True, BLACK),[100,100])
+			screen.blit(font.render("You got "+str(game.score) + ". Would you like to play agine?", True, BLACK),[100,100])
 			pg.draw.rect(screen, GREEN, pg.Rect(50, 250, 450, 100))
 			pg.draw.rect(screen, RED, pg.Rect(50, 450, 450, 100))
 			screen.blit(font.render("Yes", True, BLACK),[250,280])
