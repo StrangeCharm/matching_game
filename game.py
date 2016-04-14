@@ -42,7 +42,7 @@ pg.display.set_caption("Card Flip")
 
 class Board:
 
-	def __init__(self, amount=6,moves=100):
+	def __init__(self, amount=6,moves=90):
 		self.cardNum = amount*2
 		self.boardX = self.cardNum / 2
 		self.boardY = self.cardNum / 3
@@ -107,7 +107,6 @@ class Card:
 
 		self.x = location[0]
 		self.y = location[1]
-
 		self.xSize = 60
 		self.ySize = 60
 
@@ -134,13 +133,10 @@ class Card:
 # end of card
 
 
-game = Board()
-
-game.setup()
-
 font = pg.font.SysFont('Calibri', 25, True, False)
 
 start = True
+cards = random.randint(2,18)
 while start:
 	welcomeScreen = font.render("Welcome to matching game.", True, BLACK)
 
@@ -150,6 +146,19 @@ while start:
 		if event.type == pg.MOUSEBUTTONUP:
 			if pg.mouse.get_pos()[0] >= 50 and pg.mouse.get_pos()[1]  >= 250 and pg.mouse.get_pos()[0] <= 500 and pg.mouse.get_pos()[1] <= 350:
 				start = False
+			if pg.mouse.get_pos()[0] >= 50 and pg.mouse.get_pos()[1]  >= 400 and pg.mouse.get_pos()[0] <= 140 and pg.mouse.get_pos()[1] <= 490:
+				print "Easy"
+				cards = 6
+			if pg.mouse.get_pos()[0] >= 150 and pg.mouse.get_pos()[1]  >= 400 and pg.mouse.get_pos()[0] <= 240 and pg.mouse.get_pos()[1] <= 490:
+				print "Miled"
+				cards = 9
+			if pg.mouse.get_pos()[0] >= 250 and pg.mouse.get_pos()[1]  >= 400 and pg.mouse.get_pos()[0] <= 340 and pg.mouse.get_pos()[1] <= 490:
+				print "Spicy"
+				cards = 12
+			if pg.mouse.get_pos()[0] >= 350 and pg.mouse.get_pos()[1]  >= 400 and pg.mouse.get_pos()[0] <= 440 and pg.mouse.get_pos()[1] <= 490:
+				print "Hot"
+				cards = 18
+
 
 	screen.fill(WHITE)
 	screen.blit(welcomeScreen, [40, 80])
@@ -163,6 +172,9 @@ while start:
 	screen.blit(font.render("Play", True, BLACK), [250, 280])
 	pg.display.flip()
 
+game = Board(cards)
+
+game.setup()
 # this is the amount of clicks that the player has done
 click = 0
 
@@ -207,7 +219,7 @@ while True:
 			endCount += 1
 		else:
 			break
-	if endCount == game.cardNum:
+	if endCount == game.cardNum or game.score <= 0:
 		retry = True
 		while retry:
 
@@ -216,14 +228,18 @@ while True:
 					exit()
 				if event.type == pg.MOUSEBUTTONUP:
 					if pg.mouse.get_pos()[0] >= 50 and pg.mouse.get_pos()[1] >= 250 and pg.mouse.get_pos()[0] <= 500 and pg.mouse.get_pos()[1] <= 350:
-						game = Board()
+						game = Board(cards)
 						game.setup()
 						retry = False
 					if pg.mouse.get_pos()[0] >= 50 and pg.mouse.get_pos()[1] >= 450:
 						exit()
 
 			screen.fill(WHITE)
-			screen.blit(font.render("You got "+str(game.score) + ". Would you like to play agine?", True, BLACK),[100,100])
+			if game.score <=0:
+				exsitScreen= "You Lose... Would you like to play agine?"
+			else:
+				exsitScreen= "You got "+str(game.score) + ". Would you like to play agine?"
+			screen.blit(font.render(exsitScreen, True, BLACK),[100,100])
 			pg.draw.rect(screen, GREEN, pg.Rect(50, 250, 450, 100))
 			pg.draw.rect(screen, RED, pg.Rect(50, 450, 450, 100))
 			screen.blit(font.render("Yes", True, BLACK),[250,280])
