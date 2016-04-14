@@ -42,7 +42,7 @@ pg.display.set_caption("Card Flip")
 
 class Board:
 
-	def __init__(self, amount=6,moves=90):
+	def __init__(self, amount=6,moves=40):
 		self.cardNum = amount*2
 		self.boardX = self.cardNum / 2
 		self.boardY = self.cardNum / 3
